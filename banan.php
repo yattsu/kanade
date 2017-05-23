@@ -192,6 +192,7 @@ class Banan
 		}
 	}
 
+	# nini() and momo() are still in development
 	public function nini()
 	{
 		$nini_list = [
