@@ -1,5 +1,5 @@
 <?php
-define('BOT_USERNAME', 'banan_bot');
+define('BOT_USERNAME', 'Banan');
 define('COMMAND_KEYWORD', '$');
 
 $allowed_users = [

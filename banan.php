@@ -59,7 +59,7 @@ class Banan
 
 	public function isCommand()
 	{
-		if (trim($this->message_content[0]) == $this->COMMAND_KEYWORD) {
+		if (trim($this->message_content[0]) == $this->COMMAND_KEYWORD && !empty(trim($this->message_content[1]))) {
 			return true;
 		}
 
@@ -69,6 +69,18 @@ class Banan
 	public function say($message)
 	{
 		$this->MESSAGE->channel->sendMessage(ucfirst($message));
+	}
+
+	public function reply($message)
+	{
+		$this->MESSAGE->reply($message);
+	}
+
+	public function message_history()
+	{
+		$message_list = $this->MESSAGE->channel->getMessageHistory(['limit' => 5,]);
+
+		return $message_list[0]->content;
 	}
 
 	public function harrass()
@@ -94,7 +106,6 @@ class Banan
 
 	public function randomHarrass()
 	{
-		$victim = 'A Wooden Nail';
 		$harrassments = [
 			'Ok so this is your harrassment.',
 			'*Harrass.*',
@@ -141,19 +152,104 @@ class Banan
 			'Don\'t worry, he doesn\'t know what he\'s talking about either.',
 			'Now I\'m really confused. But I think you\'re more confused than me.',
 			'I was about to say something intelligent to you but... Forget it.',
-			'What\'s that? Try to speak properly.'
+			'What\'s that? Try to speak properly.',
+			':point_left: :poop:'
 		];
 		$random_harrass = rand(0, count($harrassments) - 1);
 
-		if ($this->message_author == $victim) {
-			$chance = rand(0, 100);
+		$victim = [
+			'A Wooden Nail',
+			'XM Gambit'
+		];
+		$safe_users = [
+			'ambanane',
+			'Merwede'
+		];
+		$safe_channels = [
+			'introduction'
+		];
 
-			if ($chance >= 75) {
-				$this->say($harrassments[$random_harrass]);
-			} else {
-				echo "CHANCE: \n" . $chance;
+		if (in_array($this->MESSAGE->channel->name, $safe_channels)) {
+			return;
+		}
+
+		$chance = rand(1, 100);
+		$victim_chance = 30;
+		$regular_chance = 3;
+		
+		if (in_array($this->message_author, $victim)) {
+			echo '>>>[CHANCE]: ' . $victim_chance . '%/' . $chance . "%\n\n";
+			if ($chance <= $victim_chance) {
+				$this->reply($harrassments[$random_harrass]);
 			}
 		}
+
+		if (!in_array($this->message_author, $safe_users) && $this->message_author !== $victim && $this->message_author !== $this->BOT_USERNAME) {
+			echo '>>>[CHANCE]: ' . $regular_chance . '%/' . $chance . "%\n\n";
+			if ($chance <= $regular_chance) {
+				$this->reply($harrassments[$random_harrass]);
+			}
+		}
+	}
+
+	public function nini()
+	{
+		$nini_list = [
+			'Good night!',
+			'Sleep well!',
+			'Nini.'
+		];
+		$nini_random = rand(0, count($nini_list) - 1);
+
+		$message = explode(' ', $this->message_content);
+		$keyword = 'ni';
+
+		$counter = 0;
+		foreach($message as $word) {
+			$keyword_instances = substr_count(strtolower($word), strtolower($keyword));
+			if($keyword_instances == 2) {
+				$counter++;
+			}
+		}
+
+		if ($counter >= 1) {
+			// $this->reply($nini_list[$nini_random]);
+			echo 'nini';
+
+			return true;
+		}
+
+		return false;
+	}
+
+	public function momo()
+	{
+		$momo_list = [
+			'Good morning!',
+			'Morning sunshine!',
+			'Momo.'
+		];
+		$momo_random = rand(0, count($momo_list) - 1);
+
+		$message = explode(' ', $this->message_content);
+		$keyword = 'mo';
+
+		$counter = 0;
+		foreach($message as $word) {
+			$keyword_instances = substr_count(strtolower($word), strtolower($keyword));
+			if($keyword_instances == 2) {
+				$counter++;
+			}
+		}
+
+		if ($counter >= 1) {
+			// $this->reply($momo_list[$momo_random]);
+			echo 'momo';
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public function compliment()

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 $discord = new \Discord\Discord([
-	'token' => 'YOUR AUTH KEY'
+	'token' => ''
 ]);
 
 $discord->on('ready', function ($discord) {
@@ -10,7 +10,7 @@ $discord->on('ready', function ($discord) {
   
     // Listen for events here
     $discord->on('message', function ($message) {
-        echo '>>> [' . $message->author->username . ']: ' . $message->content . "\n\n";
+        echo '<<< [' . $message->author->username . ']: ' . $message->content . "\n";
         require 'events/message.php';
     });
 });

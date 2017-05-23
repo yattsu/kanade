@@ -3,8 +3,14 @@
 require_once 'banan.php';
 $banan = new Banan($message);
 
+// echo $banan->message_history();
+
 if (!$banan->isBotMessage()) {
 	$banan->randomHarrass();
+
+	if (!$banan->nini()) {
+		$banan->momo();
+	}
 
 	if ($banan->isCommand()) {
 		if ($banan->isUserAllowed()) {
@@ -43,7 +49,7 @@ if (!$banan->isBotMessage()) {
 				}
 			}
 		} else {
-			$banan->say('i only take orders from my master');
+			$banan->say('i only take orders from my masters');
 		} 
 	}
 }
