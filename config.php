@@ -1,10 +1,16 @@
 <?php
 define('BOT_USERNAME', 'Banan');
+define('MASTER', '');
+define('MASTER_ID', '');
 define('COMMAND_KEYWORD', '$');
 
+define('DB_HOST', '');
+define('DB_USER', '');
+define('DB_PASSWORD', '');
+define('DB_DATABASE', '');
+
 $allowed_users = [
-	'ambanane',
-	'Merwede'
+	'*'
 ];
 
 $allowed_commands = [
@@ -17,7 +23,9 @@ $allowed_commands = [
 	'kick',
 	'bitchslap',
 	'marco',
-	'dead'
+	'dead',
+	'8ball',
+	'psychopass'
 ];
 
 define('ALLOWED_USERS', $allowed_users);

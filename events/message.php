@@ -1,12 +1,13 @@
 <?php
 
-require_once 'banan.php';
+require_once 'model/banan.php';
 $banan = new Banan($message);
 
 // echo $banan->message_history();
 
 if (!$banan->isBotMessage()) {
 	$banan->randomHarrass();
+	$banan->storepsychopass();
 
 	if (!$banan->nini()) {
 		$banan->momo();
@@ -15,7 +16,7 @@ if (!$banan->isBotMessage()) {
 	if ($banan->isCommand()) {
 		if ($banan->isUserAllowed()) {
 			if (!$banan->isCommandAllowed()) {
-				$banan->say('command doesn\'t exist');
+				$banan->say('command doesn\'t exist.');
 			} else {
 				switch ($banan->command)
 				{
@@ -45,6 +46,12 @@ if (!$banan->isBotMessage()) {
 					break;
 					case 'dead':
 						$banan->dead();
+					break;
+					case '8ball':
+						$banan->ball8();
+					break;
+					case 'psychopass':
+						$banan->psychopass();
 					break;
 				}
 			}
