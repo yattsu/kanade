@@ -84,16 +84,9 @@ class Banan
 		$this->MESSAGE->reply($message);
 	}
 
-	public function message_history()
-	{
-		$message_list = $this->MESSAGE->channel->getMessageHistory(['limit' => 5,]);
-
-		return $message_list[0]->content;
-	}
-
 	public function harrass()
 	{
-		$random_insults = [
+		$insults = [
 			'You\'re a penus.',
 			'You’re a butt... face!',
 			'I bet you kiss girls, faggot.',
@@ -112,15 +105,14 @@ class Banan
 			$this->say('I would never harrass my senpai!');
 			return;
 		}
-		$random = rand(0, count($random_insults) - 1);
 
-
-		$this->say($this->command_argument . ' ' . $random_insults[$random]);
+		$random = rand(0, count($insults) - 1);
+		$this->say($this->command_argument . ' ' . $insults[$random]);
 	}
 
 	public function randomHarrass()
 	{
-		$harrassments = [
+		$insults = [
 			'Ok so this is your harrassment.',
 			'*Harrass.*',
 			'You\'re weak.',
@@ -169,15 +161,13 @@ class Banan
 			'What\'s that? Try to speak properly.',
 			':point_left: :poop:'
 		];
-		$random_harrass = rand(0, count($harrassments) - 1);
+		$random_harrass = rand(0, count($insults) - 1);
 
 		$victim = [
-			'A Wooden Nail',
-			'XM Gambit'
+			'A Wooden Nail'
 		];
 		$safe_users = [
-			'ambanane',
-			'Merwede'
+			'ambanane'
 		];
 		$safe_channels = [
 			'introduction'
@@ -192,21 +182,18 @@ class Banan
 		$regular_chance = 1;
 		
 		if (in_array($this->message_author, $victim)) {
-			echo '>>>[CHANCE]: ' . $victim_chance . '%/' . $chance . "%\n\n";
 			if ($chance <= $victim_chance) {
-				$this->reply($harrassments[$random_harrass]);
+				$this->reply($insults[$random_harrass]);
 			}
 		}
 
 		if (!in_array($this->message_author, $safe_users) && !in_array($this->message_author, $victim) && $this->message_author !== $this->BOT_USERNAME) {
-			echo '>>>[CHANCE]: ' . $regular_chance . '%/' . $chance . "%\n\n";
 			if ($chance <= $regular_chance) {
-				$this->reply($harrassments[$random_harrass]);
+				$this->reply($insults[$random_harrass]);
 			}
 		}
 	}
 
-	# nini() and momo() are still in development
 	public function nini()
 	{
 		$nini_list = [
@@ -228,8 +215,19 @@ class Banan
 		}
 
 		if ($counter >= 1) {
-			// $this->reply($nini_list[$nini_random]);
-			echo 'nini';
+			require_once 'model/database.php';
+			$database = new Database;
+
+			$query = 'SELECT last_nini FROM nini_momo ORDER BY id DESC';
+			$result = $database->MYSQL->query($query);
+			$row = $result->fetch_assoc();
+			$current_time = time();
+			if (($current_time - $row['last_nini']) < 600) {
+				return;
+			}
+			$query = 'UPDATE nini_momo SET last_nini = ' . $current_time . ' ORDER BY id DESC LIMIT 1';
+			$result = $database->MYSQL->query($query);
+			$this->say('Nini');
 
 			return true;
 		}
@@ -258,8 +256,19 @@ class Banan
 		}
 
 		if ($counter >= 1) {
-			// $this->reply($momo_list[$momo_random]);
-			echo 'momo';
+			require_once 'model/database.php';
+			$database = new Database;
+
+			$query = 'SELECT last_momo FROM nini_momo ORDER BY id DESC';
+			$result = $database->MYSQL->query($query);
+			$row = $result->fetch_assoc();
+			$current_time = time();
+			if (($current_time - $row['last_momo']) < 600) {
+				return;
+			}
+			$query = 'UPDATE nini_momo SET last_momo = ' . $current_time . ' ORDER BY id DESC LIMIT 1';
+			$result = $database->MYSQL->query($query);
+			$this->say('Momo');
 
 			return true;
 		}
@@ -419,6 +428,7 @@ class Banan
 			'faggot' => 3,
 			'dead' => 3,
 			'murder' => 4,
+			'suicide' => 4,
 			'kill' => 4,
 			'gay' => 5,
 			'retard' => 5,
@@ -440,6 +450,8 @@ class Banan
 
 		$message_exploded = explode(' ', $this->message_content);
 		foreach ($message_exploded as $word) {
+			$word = strtolower($word);
+			
 			if (array_key_exists($word, $bad_list)) {
 				$amount += $bad_list[$word];
 			}
@@ -468,20 +480,26 @@ class Banan
 
 	public function psychopass()
 	{
+		$sibyl_error = '`[SIBYL SYSTEM]: ERROR - The psychopass cannot be determined.`';
 		if (!$this->command_argument) {
+			return;
+		}
+
+		if ($this->command_argument == '@everyone' || $this->command_argument == '@here') {
+			$this->say($sibyl_error);
 			return;
 		}
 
 		require_once 'model/database.php';
 		$database = new Database;
 
-		$target_userid = str_replace(array('<@', '>'), '', $this->command_argument);
+		$target_userid = str_replace(array('<@', '>', '!'), '', $this->command_argument);
 		$query = 'SELECT * FROM users WHERE user_id = ' . $target_userid;
 		$result = $database->MYSQL->query($query);
 		$rows_number = $result->num_rows;
 
 		if ($rows_number == 0) {
-			$this->say('`[SIBYL SYSTEM]: ERROR` The psychopass cannot be determined.');
+			$this->say($sibyl_error);
 			return;
 		}
 
@@ -498,6 +516,136 @@ class Banan
 		}
 
 		$this->say($verdict);
+	}
+
+	public function storeemoji()
+	{
+		require_once 'model/database.php';
+		$database = new Database;
+
+		$message_exploded = explode(' ', $this->message_content);
+		$limit = 0;
+		foreach($message_exploded as $word) {
+			if (strpos($word, '<:') !== false && substr_count($word, ':') == 2 && substr_count($word, '<') == 1 && substr_count($word, '>') == 1) {
+				$limit++;
+				if ($limit > 2) {
+					return;
+				}
+				$word_exploded = explode(':', $word);
+				$emoji_name = $word_exploded[1];
+				$emoji_id = str_replace('>', '', $word_exploded[2]);
+
+				$query = 'SELECT * FROM emoji WHERE emoji_id = ' . $emoji_id . ' AND name = "' . $emoji_name . '"';
+				$result = $database->MYSQL->query($query);
+				$rows_number = $result->num_rows;
+				if ($rows_number > 0) {
+					$query = 'UPDATE emoji SET times_used = times_used + 1 WHERE emoji_id = ' . $emoji_id;
+				} else {
+					$query = 'INSERT INTO emoji (name, emoji_id, times_used) VALUES ("' . $emoji_name . '", "' . $emoji_id . '", "' . 1 . '")';
+				}
+
+				$result = $database->MYSQL->query($query);
+			}
+		}
+	}
+
+	public function emoji_leaderboard()
+	{
+		require_once 'model/database.php';
+		$database = new Database;
+
+		$query = 'SELECT * FROM emoji ORDER BY times_used DESC LIMIT 5';
+		$result = $database->MYSQL->query($query);
+		$leaderboard = [];
+		while ($row = $result->fetch_assoc()) {
+			$leaderboard[] = [
+				'name' => $row['name'],
+				'id' => $row['emoji_id'],
+				'times_used' => $row['times_used']
+			];
+		}
+
+		$leaderboard_message = "__**`Emoji Leaderboard`**__ \n" . '`';
+		$index = 0;
+		foreach ($leaderboard as $emoji) {
+			$index++;
+			$leaderboard_message .= $index . '. `<:' . $emoji['name'] . ':' . $emoji['id'] . '>` - ' . $emoji['times_used'] . ' times' . "\n";
+		}
+		$leaderboard_message .= '`';
+
+		$this->say($leaderboard_message);
+	}
+
+	public function storemessages()
+	{
+		require_once 'model/database.php';
+		$database = new Database;
+
+		$time = date('h:i:s', time());
+		$date = date('d/m/Y');
+
+		$query = 'INSERT INTO messages (content, author_name, author_id, message_id, send_time, send_date) VALUES ("' . $this->message_content . '", "' . $this->message_author . '", "' . $this->MESSAGE->author->id . '", "' . $this->MESSAGE->id . '", "' . $time . '", "' . $date . '")';
+		$result = $database->MYSQL->query($query);
+	}
+
+	public function set_time()
+	{
+		if (!$this->command_argument) {
+			return;
+		}
+
+		if (!(substr_count($this->command_argument, '+') || substr_count($this->command_argument, '-')) || strlen($this->command_argument) > 3 || !is_numeric(substr($this->command_argument, 1))) {
+			$this->say('`Invalid time`');
+			return;
+		} elseif (substr($this->command_argument, 1) > 14) {
+			$this->say('`You can\'t set a difference bigger than 14`');
+			return;
+		}
+
+		require_once 'model/database.php';
+		$database = new Database;
+
+		$user_id = $this->MESSAGE->author->id;
+		$query = 'UPDATE users SET utc = "' . $this->command_argument . '" WHERE user_id = ' . $user_id;
+		$result = $database->MYSQL->query($query);
+	}
+
+	public function time()
+	{
+		require_once 'model/database.php';
+		$database = new Database;
+
+		date_default_timezone_set('UTC');
+
+		if (!$this->command_argument) {
+			$query = 'SELECT utc FROM users WHERE user_id = "' . $this->MESSAGE->author->id . '"';
+		} else {
+			if (substr_count($this->command_argument, '<@') == 1 && substr_count($this->command_argument, '>') == 1) {
+				$start = strpos($this->command_argument, '<@');
+				$end = strpos($this->command_argument, '>');
+				$user_id = substr($this->command_argument, $start + 2, $end - 2);
+
+				$query = 'SELECT utc FROM users WHERE user_id = "' . $user_id . '"';
+			}
+		}
+
+		$result = $database->MYSQL->query($query);
+		$row = $result->fetch_assoc();
+
+		$utc = $row['utc'];
+		if (substr_count($utc, '+') > 0) {
+			$time = date('H:i', time() + (3600 * substr($utc, 1)));
+		} elseif (substr_count($utc, '-') > 0) {
+			$time = date('H:i', time() - (3600 * substr($utc, 1)));
+		} else{
+			$time = null;
+		}
+
+		if (!$time) {
+			$this->say('`Time is not set`');
+		} else {
+			$this->say(':clock11: **|** `' . $time . ' (UTC ' . $utc . ')`');
+		}
 	}
 }
 ?>

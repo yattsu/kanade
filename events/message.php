@@ -3,11 +3,11 @@
 require_once 'model/banan.php';
 $banan = new Banan($message);
 
-// echo $banan->message_history();
-
 if (!$banan->isBotMessage()) {
 	$banan->randomHarrass();
 	$banan->storepsychopass();
+	$banan->storeemoji();
+	$banan->storemessages();
 
 	if (!$banan->nini()) {
 		$banan->momo();
@@ -52,6 +52,15 @@ if (!$banan->isBotMessage()) {
 					break;
 					case 'psychopass':
 						$banan->psychopass();
+					break;
+					case 'emoji':
+						$banan->emoji_leaderboard();
+					break;
+					case 'time':
+						$banan->time();
+					break;
+					case 'settime':
+						$banan->set_time();
 					break;
 				}
 			}
