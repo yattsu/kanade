@@ -4,10 +4,10 @@ define('MASTER', '');
 define('MASTER_ID', '');
 define('COMMAND_KEYWORD', '$');
 
-define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'root');
+define('DB_HOST', '');
+define('DB_USER', '');
 define('DB_PASSWORD', '');
-define('DB_DATABASE', 'banan');
+define('DB_DATABASE', '');
 
 $allowed_users = [
 	'*',
