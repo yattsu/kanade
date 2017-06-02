@@ -8,6 +8,7 @@ if (!$banan->isBotMessage()) {
 	$banan->storepsychopass();
 	$banan->storeemoji();
 	$banan->storemessages();
+	$banan->checkafk();
 
 	if (!$banan->nini()) {
 		$banan->momo();
@@ -61,6 +62,21 @@ if (!$banan->isBotMessage()) {
 					break;
 					case 'settime':
 						$banan->set_time();
+					break;
+					case 'afk':
+						$banan->afk();
+					break;
+					case 'afkoff':
+						$banan->afkoff();
+					break;
+					case 'daily':
+						$banan->daily();
+					break;
+					case 'give':
+						$banan->give();
+					break;
+					case 'schmeckles':
+						$banan->schmeckles();
 					break;
 				}
 			}
