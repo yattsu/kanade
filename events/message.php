@@ -78,6 +78,18 @@ if (!$banan->isBotMessage()) {
 					case 'schmeckles':
 						$banan->schmeckles();
 					break;
+					case 'startbet':
+						$banan->startbet();
+					break;
+					case 'bet':
+						$banan->bet();
+					break;
+					case 'betresults':
+						$banan->betresults();
+					break;
+					case 'lol':
+						$banan->lol();
+					break;
 				}
 			}
 		} else {

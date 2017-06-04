@@ -4,10 +4,10 @@ define('MASTER_USERNAME', 'ambanane');
 define('MASTER_ID', '170969285110267904');
 define('COMMAND_KEYWORD', '$');
 
-define('DB_HOST', '');
-define('DB_USER', '');
+define('DB_HOST', '127.0.0.1');
+define('DB_USER', 'root');
 define('DB_PASSWORD', '');
-define('DB_DATABASE', '');
+define('DB_DATABASE', 'banan');
 
 $allowed_users = [
 	'*',
@@ -34,7 +34,11 @@ $allowed_commands = [
 	'afkoff',
 	'daily',
 	'give',
-	'schmeckles'
+	'schmeckles',
+	'startbet',
+	'bet',
+	'betresults',
+	'lol'
 ];
 
 define('ALLOWED_USERS', $allowed_users);
