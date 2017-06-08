@@ -1,5 +1,6 @@
 <?php
 define('BOT_USERNAME', 'Kanade');
+define('TOKEN', '');
 define('MASTER_USERNAME', 'ambanane');
 define('MASTER_ID', '170969285110267904');
 define('COMMAND_KEYWORD', '$');
