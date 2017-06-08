@@ -6,9 +6,8 @@ $discord = new \Discord\Discord([
 ]);
 
 $discord->on('ready', function ($discord) {
-    echo "\n\n>>> Banan is up and running, sir!.\n\n", PHP_EOL;
+    echo "\n\n>>> " . $discord->user->username . " is functional.\n\n", PHP_EOL;
   
-    // Listen for events here
     $discord->on('message', function ($message) {
         echo '<<< [' . $message->author->username . ']: ' . $message->content . "\n";
         require 'events/message.php';

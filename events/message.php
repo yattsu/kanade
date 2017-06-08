@@ -1,99 +1,107 @@
 <?php
 
-require_once 'model/banan.php';
-$banan = new Banan($message);
+require_once 'model/kanade.php';
+$kanade = new kanade($message);
 
-if (!$banan->isBotMessage()) {
-	$banan->randomHarrass();
-	$banan->storepsychopass();
-	$banan->storeemoji();
-	$banan->storemessages();
-	$banan->checkafk();
+$kanade->storeguild();
 
-	if (!$banan->nini()) {
-		$banan->momo();
+if (!$kanade->isBotMessage()) {
+	// $kanade->randomHarrass();
+	$kanade->storepsychopass();
+	$kanade->storeemoji();
+	$kanade->storemessages();
+	$kanade->checkafk();
+
+	if (!$kanade->nini()) {
+		$kanade->momo();
 	}
 
-	if ($banan->isCommand()) {
-		if ($banan->isUserAllowed()) {
-			if (!$banan->isCommandAllowed()) {
-				$banan->say('command doesn\'t exist.');
+	if ($kanade->isCommand()) {
+		if ($kanade->isUserAllowed()) {
+			if (!$kanade->isCommandAllowed()) {
+				$kanade->say('command doesn\'t exist.');
 			} else {
-				switch ($banan->command)
+				switch ($kanade->command)
 				{
 					case 'harrass':
-						$banan->harrass();
+						$kanade->harrass();
 					break;
 					case 'compliment':
-						$banan->compliment();
+						$kanade->compliment();
 					break;
 					case 'whosyourdaddy':
-						$banan->whosyourdaddy();
+						$kanade->whosyourdaddy();
 					break;
 					case 'selfdefense':
-						$banan->selfdefense();
+						$kanade->selfdefense();
 					break;
 					case 'gj':
-						$banan->gj();
+						$kanade->gj();
 					break;
 					case 'kick':
-						$banan->kick();
+						$kanade->kick();
 					break;
 					case 'bitchslap':
-						$banan->bitchslap();
+						$kanade->bitchslap();
 					break;
 					case 'marco':
-						$banan->marco();
+						$kanade->marco();
 					break;
 					case 'dead':
-						$banan->dead();
+						$kanade->dead();
 					break;
 					case '8ball':
-						$banan->ball8();
+						$kanade->ball8();
 					break;
 					case 'psychopass':
-						$banan->psychopass();
+						$kanade->psychopass();
 					break;
 					case 'emoji':
-						$banan->emoji_leaderboard();
+						$kanade->emoji_leaderboard();
 					break;
 					case 'time':
-						$banan->time();
+						$kanade->time();
 					break;
 					case 'settime':
-						$banan->set_time();
+						$kanade->set_time();
 					break;
 					case 'afk':
-						$banan->afk();
+						$kanade->afk();
 					break;
 					case 'afkoff':
-						$banan->afkoff();
+						$kanade->afkoff();
 					break;
 					case 'daily':
-						$banan->daily();
+						$kanade->daily();
 					break;
 					case 'give':
-						$banan->give();
+						$kanade->give();
 					break;
 					case 'schmeckles':
-						$banan->schmeckles();
+						$kanade->schmeckles();
 					break;
 					case 'startbet':
-						$banan->startbet();
+						$kanade->startbet();
 					break;
 					case 'bet':
-						$banan->bet();
+						$kanade->bet();
 					break;
 					case 'betresults':
-						$banan->betresults();
+						$kanade->betresults();
 					break;
 					case 'lol':
-						$banan->lol();
+						$kanade->lol();
+					break;
+					case 'getguildid':
+						$kanade->getguildid();
+					break;
+					case 'members':
+						$kanade->members();
 					break;
 				}
 			}
 		} else {
-			$banan->say('i only take orders from my masters');
+			$kanade->say('i only take orders from my masters');
 		} 
 	}
 }

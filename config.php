@@ -1,5 +1,5 @@
 <?php
-define('BOT_USERNAME', 'Banan');
+define('BOT_USERNAME', 'Kanade');
 define('MASTER_USERNAME', 'ambanane');
 define('MASTER_ID', '170969285110267904');
 define('COMMAND_KEYWORD', '$');
@@ -7,7 +7,7 @@ define('COMMAND_KEYWORD', '$');
 define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
-define('DB_DATABASE', 'banan');
+define('DB_DATABASE', 'kanade');
 
 $allowed_users = [
 	'*',
@@ -38,7 +38,9 @@ $allowed_commands = [
 	'startbet',
 	'bet',
 	'betresults',
-	'lol'
+	'lol',
+	'getguildid',
+	'members'
 ];
 
 define('ALLOWED_USERS', $allowed_users);
