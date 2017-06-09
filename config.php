@@ -10,18 +10,21 @@ define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 define('DB_DATABASE', 'kanade');
 
+define('API', [
+	'pollution' => ''
+]);
+
 $allowed_users = [
 	'*',
 	'170969285110267904'
 ];
 
 $allowed_commands = [
-	'harrass',
+	'harass',
 	'compliment',
 	'whosyourdaddy',
 	'selfdefense',
 	'gj',
-	'fuckoff',
 	'kick',
 	'bitchslap',
 	'marco',
@@ -40,8 +43,9 @@ $allowed_commands = [
 	'bet',
 	'betresults',
 	'lol',
-	'getguildid',
-	'members'
+	'members',
+	'emojify',
+	'air'
 ];
 
 define('ALLOWED_USERS', $allowed_users);
