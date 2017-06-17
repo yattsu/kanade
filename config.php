@@ -45,7 +45,9 @@ $allowed_commands = [
 	'lol',
 	'members',
 	'emojify',
-	'air'
+	'air',
+	'memory',
+	'shutdown'
 ];
 
 define('ALLOWED_USERS', $allowed_users);

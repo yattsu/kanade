@@ -10,9 +10,15 @@ $discord->on('ready', function ($discord) {
     echo "\n\n>>> " . $discord->user->username . " is functional.\n\n", PHP_EOL;
   
     $discord->on('message', function ($message) {
-        echo '<<< [' . $message->author->username . ']: ' . $message->content . "\n";
-        require 'events/message.php';
+    	echo '<<< [' . $message->author->username . ']: ' . $message->content . "\n";
+		require 'events/message.php';
     });
+    
+    $discord->on('addMember')->then(
+    	function () {
+    		echo 'asd';
+    	}
+    );
 });
 
 $discord->run();

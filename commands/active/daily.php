@@ -2,7 +2,7 @@
 require_once 'model/database.php';
 $database = new Database;
 
-$daily_amount = 125;
+$daily_amount = 325;
 $command_argument = $this->command_argument;
 $author_id = $this->MESSAGE->author->id;
 $time_now = time();
