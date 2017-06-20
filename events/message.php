@@ -26,7 +26,7 @@ if (!$kanade->isBotMessage()) {
 	}
 
 	if (!$kanade->isCommandAllowed()) {
-		$kanade->say('`command doesn\'t exist`');
+		// $kanade->say('`command doesn\'t exist`');
 
 		return;
 	}
