@@ -13,12 +13,6 @@ $discord->on('ready', function ($discord) {
     	echo '<<< [' . $message->author->username . ']: ' . $message->content . "\n";
 		require 'events/message.php';
     });
-    
-    $discord->on('addMember')->then(
-    	function () {
-    		echo 'asd';
-    	}
-    );
 });
 
 $discord->run();

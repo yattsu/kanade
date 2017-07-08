@@ -5,10 +5,10 @@ define('MASTER_USERNAME', 'ambanane');
 define('MASTER_ID', '170969285110267904');
 define('COMMAND_KEYWORD', '$');
 
-define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'root');
+define('DB_HOST', '');
+define('DB_USER', '');
 define('DB_PASSWORD', '');
-define('DB_DATABASE', 'kanade');
+define('DB_DATABASE', '');
 
 define('API', [
 	'pollution' => ''
@@ -47,7 +47,12 @@ $allowed_commands = [
 	'emojify',
 	'air',
 	'memory',
-	'shutdown'
+	'shutdown',
+	'nations',
+	'hgstart',
+	'hgend',
+	'hgadd',
+	'hg'
 ];
 
 define('ALLOWED_USERS', $allowed_users);

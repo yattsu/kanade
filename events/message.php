@@ -1,5 +1,4 @@
 <?php
-
 require_once 'model/kanade.php';
 $kanade = new kanade($message);
 
@@ -12,7 +11,8 @@ if (!$kanade->isBotMessage()) {
 		'storepsychopass',
 		'storeemoji',
 		'storemessages',
-		'checkafk'
+		'checkafk',
+		'store_nations'
 		]);
 
 	if (!$kanade->isCommand()) {
@@ -36,7 +36,11 @@ if (!$kanade->isBotMessage()) {
 	$aliases = [
 		'8ball' => 'ball8',
 		'emoji' => 'emoji_leaderboard',
-		'settime' => 'set_time'
+		'settime' => 'set_time',
+		'hgstart' => 'hunger_games_start',
+		'hgend' => 'hunger_games_stop',
+		'hgadd' => 'hunger_games_add',
+		'hg' => 'hunger_games_next'
 	];
 
 	if (array_key_exists(strtolower($command), $aliases)) {
