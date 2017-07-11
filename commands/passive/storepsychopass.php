@@ -57,9 +57,10 @@ foreach ($message_exploded as $word) {
 	
 	if (array_key_exists($word, $bad_list)) {
 		$amount += $bad_list[$word];
-	} elseif (array_key_exists($word, $good_list)) {
-		$amount -= $good_list[$word];
-	}
+	} 
+	// elseif (array_key_exists($word, $good_list)) {
+	// 	$amount -= $good_list[$word];
+	// }
 }
 
 $query = 'SELECT * from users WHERE user_id = ' . $author_id;
